@@ -123,8 +123,8 @@ void retro_get_system_info(struct retro_system_info *info)
 
 void retro_get_system_av_info(struct retro_system_av_info *info)
 {
-   info->geometry.base_width = RES_W;
-   info->geometry.base_height = RES_H;
+   info->geometry.base_width = 640;
+   info->geometry.base_height = 480;
    info->geometry.max_width = RES_W;
    info->geometry.max_height = RES_H;
    info->geometry.aspect_ratio = 4.0f / 3.0f;
