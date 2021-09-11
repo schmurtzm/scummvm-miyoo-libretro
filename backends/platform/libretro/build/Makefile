@@ -75,6 +75,29 @@ ifeq ($(platform), unix)
    DEFINES += -fPIC
    LDFLAGS += -shared -Wl,--version-script=../link.T -fPIC
    TARGET_64BIT := $(BUILD_64BIT)
+
+# Raspberry Pi 3 (64 bit)
+else ifeq ($(platform), rpi3_64)
+   TARGET = $(TARGET_NAME)_libretro.so
+   DEFINES += -fPIC
+   CFLAGS += -fPIC
+   LDFLAGS += -shared -Wl,--version-script=../link.T -fPIC
+   CFLAGS += -mcpu=cortex-a53 -mtune=cortex-a53
+   CFLAGS += -fomit-frame-pointer -ffast-math
+   CXXFLAGS = $(CFLAGS) -frtti
+   BUILD_64BIT = 1
+
+# Raspberry Pi 4 (64 bit)
+else ifeq ($(platform), rpi4_64)
+   TARGET = $(TARGET_NAME)_libretro.so
+   DEFINES += -fPIC
+   CFLAGS += -fPIC
+   LDFLAGS += -shared -Wl,--version-script=../link.T -fPIC
+   CFLAGS += -mcpu=cortex-a72 -mtune=cortex-a72
+   CFLAGS += -fomit-frame-pointer -ffast-math
+   CXXFLAGS = $(CFLAGS) -frtti
+   BUILD_64BIT = 1
+
 # OS X
 else ifeq ($(platform), osx)
    TARGET  := $(TARGET_NAME)_libretro.dylib
