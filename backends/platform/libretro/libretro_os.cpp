@@ -673,7 +673,7 @@ class OSystem_RETRO : public EventsBaseBackend, public PaletteManager {
 					if (time_remaining > elapsed_time)
 					{
 						time_remaining = time_remaining - elapsed_time;
-						retro_sleep(1);
+						usleep(1000);
 					}
 					else
 					{
@@ -690,7 +690,7 @@ class OSystem_RETRO : public EventsBaseBackend, public PaletteManager {
 				// Use accurate method...
 				while(getMillis() < start_time + msecs)
 				{
-					retro_sleep(1);
+					usleep(1000);
 					retroCheckThread();
 					// Have to handle the timer manager here, since some engines
 					// (e.g. dreamweb) sit in a delayMillis() loop waiting for a
