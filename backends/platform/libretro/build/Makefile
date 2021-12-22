@@ -66,9 +66,9 @@ else
 endif
 endif
 
-LD        = $(CXX)
-AR        = ar cru
-RANLIB    = ranlib
+LD        ?= $(CXX)
+AR        ?= ar cru
+RANLIB    ?= ranlib
 
 ifeq ($(platform), unix)
    TARGET  := $(TARGET_NAME)_libretro.so
