@@ -82,7 +82,7 @@ static Common::String generatePreferredTarget(const ADGameDescription *desc) {
 DetectedGame AdvancedMetaEngine::toDetectedGame(const ADDetectedGame &adGame) const {
 	const ADGameDescription *desc = adGame.desc;
 
-	const char *gameId = _singleId ? _singleId : desc->gameId;
+	const char *gameId = desc->gameId;
 
 	const char *title;
 	const char *extra;
