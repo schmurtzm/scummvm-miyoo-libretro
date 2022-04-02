@@ -814,7 +814,8 @@ class OSystem_RETRO : public EventsBaseBackend, public PaletteManager {
          float analog_amplitude_x, analog_amplitude_y;
          int mouse_acc_int;
          bool do_joystick, do_mouse, down;
-         float adjusted_cursor_speed = (float)BASE_CURSOR_SPEED * gampad_cursor_speed;
+         float screen_adjusted_cursor_speed = (float)_screen.w / 320.0f; // Dpad cursor speed should always be based off a 320 wide screen, to keep speeds consistent
+         float adjusted_cursor_speed = (float)BASE_CURSOR_SPEED * gampad_cursor_speed * screen_adjusted_cursor_speed;
          float inverse_acceleration_time = (gamepad_acceleration_time > 0.0) ? (1.0 / 60.0) * (1.0 / gamepad_acceleration_time) : 1.0;
          int dpad_cursor_offset;
          double rs_radius, rs_angle;
