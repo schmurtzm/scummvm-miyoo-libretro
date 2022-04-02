@@ -301,7 +301,7 @@ else ifeq ($(platform), miyoomini)
    LD = /usr/bin/arm-linux-gnueabihf-g++
    AR = /usr/bin/arm-linux-gnueabihf-ar cru
    RANLIB = /usr/bin/arm-linux-gnueabihf-ranlib
-   DEFINES += -DDINGUX -fomit-frame-pointer -ffast-math -marm -march=armv7ve+simd -mtune=cortex-a7 -fPIC
+   DEFINES += -fomit-frame-pointer -ffast-math -marm -march=armv7ve+simd -mtune=cortex-a7 -fPIC
    DEFINES += -ffunction-sections -fdata-sections
    LDFLAGS += -shared -Wl,--gc-sections -Wl,--version-script=../link.T -fPIC
    USE_VORBIS = 0
@@ -309,7 +309,7 @@ else ifeq ($(platform), miyoomini)
    USE_TREMOR = 1
    USE_LIBCO  = 0
    HAVE_MT32EMU = 0
-   NO_HIGH_DEF := 1
+   NO_HIGH_DEF = 0
 
 else ifeq ($(platform), android-armv7)
    TARGET  := $(TARGET_NAME)_libretro_android.so
