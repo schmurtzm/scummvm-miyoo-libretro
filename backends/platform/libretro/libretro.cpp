@@ -473,8 +473,8 @@ void retro_run (void)
       video_cb(screen.pixels, screen.w, screen.h, screen.pitch);
 
       /* Upload audio */
-      static uint32 buf[735];
-      int count = ((Audio::MixerImpl*)g_system->getMixer())->mixCallback((byte*)buf, 735*4);
+      static uint32 buf[1024];
+      int count = ((Audio::MixerImpl*)g_system->getMixer())->mixCallback((byte*)buf, 1024*4);
 #if defined(_3DS)
       /* Hack: 3DS will produce static noise
        * unless we manually send a zeroed
