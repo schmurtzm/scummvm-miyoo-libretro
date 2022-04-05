@@ -326,8 +326,14 @@ void ConfigManager::writeDomain(WriteStream &stream, const String &name, const D
 	// WORKAROUND: Fix for bug #1972625 "ALL: On-the-fly targets are
 	// written to the config file": Do not save domains that came from
 	// the command line
+
+	// HACK: Actually save the settings in LibRetro builds. A potentially messy 
+	// config file is better than not saving the options at all, ever, since
+	// all libretro runs come from the command line.
+#ifndef __LIBRETRO__
 	if (domain.contains("id_came_from_command_line"))
 		return;
+#endif
 
 	String comment;
 
