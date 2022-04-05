@@ -231,7 +231,6 @@ static void update_variables(void)
    gamepad_acceleration_time = 0.2f;
    if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
    {
-      printf("Updating gamepad_acceleration_time\n");
       gamepad_acceleration_time = (float)atof(var.value);
    }
 
