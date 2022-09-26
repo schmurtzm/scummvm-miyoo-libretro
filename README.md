@@ -1,8 +1,13 @@
 # ScummVM libretro Core For Miyoo Mini
 
-This repo is based on StupidHoroscope/scummvm-miyoo-old which is a fork of the official libretro ScummVM core.
+
+[ScummVM](http://scummvm.org) is an interpreter for point-and-click adventure games that can be used as a libretro core.
+
+This repo is based on [StupidHoroscope/scummvm-miyoo-old](https://github.com/StupidHoroscope/scummvm-miyoo-old) which is a fork of the official libretro ScummVM core.
+
 The libretro core is currently a little outdated (v2.1.1) and support less games than the current v2.7 of ScummVM (About 298 games in v2.1.1 vs 385 in v2.7).
 Still interesting because it includes commits from the RA team which could have some different behavior comparing to the official ScummVM.
+
 Remark : As it is outdated, it stills support .sof files (which contains flac), this compressed audio format is not supported since ScummVm v2.6. But even if ScummVM recommand to use .sou audio files, you can still find games (like Full Trottle) with this .sof compressed sound format.
 
 Comparing the official libretro, this repo contains some optimizations for lowpower devices like the Miyoo Mini handheld : 
@@ -10,10 +15,6 @@ Comparing the official libretro, this repo contains some optimizations for lowpo
 - a new core option allows to choose a target FPS which impacts audio buffer and allow to have less audio stuttering.
 - a makefile modified for Miyoo Mini
 
-
-
-
-[ScummVM](http://scummvm.org) is an interpreter for point-and-click adventure games that can be used as a libretro core.
 
 ## Compiling
 
@@ -25,13 +26,13 @@ make platform=miyoomini -j$(nproc)
 ```
 
 When updating ScummVM, it's important to rebuild [scummvm.zip](aux-data/scummvm.zip) so that any auxiliary data is bundled in. The compile the new scummvm.zip, run the following command:
-These extra files can be unziped in BIOS folder of the Miyoo Mini. This archive contains themes and files required to make some engines work (like kyra.dat for westwood games).
 
 ```
 cd backends/platform/libretro/aux-data
 ./bundle_aux_data.bash
 ```
-
+These extra files can be unziped in BIOS folder of the Miyoo Mini. 
+This archive contains themes and files required to make some engines work (like kyra.dat for westwood games).
 
 ---
 
