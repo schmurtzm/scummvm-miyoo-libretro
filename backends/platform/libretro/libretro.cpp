@@ -57,6 +57,11 @@ static float gamepad_acceleration_time = 0.2f;
 
 static bool speed_hack_is_enabled = false;
 
+// for audio stutter reduction hack :
+static int target_fps=55;
+static size_t audio_buffer_length = 0;
+static uint32* audio_buffer = NULL;
+
 char cmd_params[20][200];
 char cmd_params_num;
 
@@ -145,6 +150,11 @@ void retro_init (void)
 
 void retro_deinit(void)
 {
+   if (audio_buffer != NULL)
+   {
+      delete [] audio_buffer;
+      audio_buffer = NULL;
+   }
 }
 
 void parse_command_params(char* cmdline)
@@ -267,6 +277,15 @@ static void update_variables(void)
 		if (strcmp(var.value, "enabled") == 0)
 			speed_hack_is_enabled = true;
 	}
+	
+   var.key = "scummvm_target_fps";
+   var.value = NULL;
+   target_fps = 55u;
+   if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+   {
+      target_fps = (int)atof(var.value);
+   }
+	
 }
 
 static int retro_device = RETRO_DEVICE_JOYPAD;
@@ -471,11 +490,27 @@ void retro_run (void)
       const Graphics::Surface& screen = getScreen();
       video_cb(screen.pixels, screen.w, screen.h, screen.pitch);
 
-      /* Upload audio */
-      const int SAMPLES_PER_FRAME = 44100u / 50u; // HACK: This locks the framerate to a max of 50, but stops crackling audio in most games
 
-      static uint32 buf[SAMPLES_PER_FRAME];
-      int count = ((Audio::MixerImpl*)g_system->getMixer())->mixCallback((byte*)buf, SAMPLES_PER_FRAME*4);
+      /* Upload audio */
+      // HACK: Stutter reduction locks the framerate to a max of 50, but stops crackling audio in most games
+      
+       int samples_per_frame = 44100u / (target_fps); 
+
+      if (audio_buffer == NULL || samples_per_frame != audio_buffer_length)
+      {
+         if (audio_buffer != NULL)
+         {
+            delete [] audio_buffer;
+         }
+
+         audio_buffer_length = samples_per_frame;
+         audio_buffer = new uint32[audio_buffer_length];
+      }
+
+      int count = ((Audio::MixerImpl*)g_system->getMixer())->mixCallback((byte*)audio_buffer, audio_buffer_length*4);
+	  
+	  
+	  
 #if defined(_3DS)
       /* Hack: 3DS will produce static noise
        * unless we manually send a zeroed
@@ -489,7 +524,7 @@ void retro_run (void)
       }
       else
 #endif
-         audio_batch_cb((int16_t*)buf, count);
+         audio_batch_cb((int16_t*)audio_buffer, count);
    }
 
 #if defined(USE_LIBCO)

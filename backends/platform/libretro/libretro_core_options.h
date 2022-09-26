@@ -158,6 +158,26 @@ struct retro_core_option_definition option_defs_us[] = {
       "disabled"
 #endif
    },
+   {
+      "scummvm_target_fps",
+      "Target FPS for stutter reduction",
+      "On Miyoo mini set it to 20 for 2.5D games like Grim or Broken Sword 2.5",
+      {
+         { "10", NULL },
+         { "15", NULL },
+         { "20", NULL },
+         { "25", NULL },
+         { "30", NULL },
+         { "35", NULL },
+         { "40", NULL },
+         { "45", NULL },
+         { "50", NULL },
+         { "55", NULL },
+         { "60", NULL },
+         { NULL, NULL },
+      },
+      "55"
+   },
    { NULL, NULL, NULL, {{0}}, NULL },
 };
 
