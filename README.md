@@ -8,7 +8,7 @@ This repo is based on [StupidHoroscope/scummvm-miyoo-old](https://github.com/Stu
 The libretro core is currently a little outdated (v2.1.1) and support less games than the current v2.7 of ScummVM (About 298 games in v2.1.1 vs 385 in v2.7).
 Still interesting because it includes commits from the RA team which could have some different behavior comparing to the official ScummVM.
 
-Remark : As it is outdated, it stills support .sof files (which contains flac), this compressed audio format is not supported since ScummVm v2.6. But even if ScummVM recommand to use .sou audio files, you can still find games (like Full Trottle) with this .sof compressed sound format.
+Remark : As it is outdated, it stills support .sof files (which contains flac), this compressed audio format is not supported since ScummVm v2.6 with new more accurate audio engine (They had to drop support for recompressed audio files as they are missing some data that is now used). If you don't have voices in Full Throttle it comes from these .sof files. Even if ScummVM recommand to use .sou audio files, you can still find games (like Full Trottle) with this .sof compressed sound format.
 
 Comparing the official libretro, this repo contains some optimizations for lowpower devices like the Miyoo Mini handheld : 
 - a better mouse cursor acceleration to be use with the D-Pad of the Miyoo Miyoo
